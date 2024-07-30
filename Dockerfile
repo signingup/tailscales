@@ -3,7 +3,7 @@ FROM ubuntu:22.04 AS base
 RUN apt-get update && apt-get install -y git
 
 WORKDIR /workspace/tailscale
-RUN git clone https://github.com/tailscale/tailscale.git .
+RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.70.0
 
 FROM golang:1.22.4-alpine AS builder
 
