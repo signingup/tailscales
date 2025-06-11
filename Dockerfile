@@ -4,7 +4,7 @@ RUN apk update && apk add --no-cache git
 
 #build tailscale
 WORKDIR /tailscale
-RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.84.1
+RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.84.2
 
 RUN go mod download
 
