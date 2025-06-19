@@ -33,13 +33,12 @@ RUN CGO_ENABLED=0 GOARCH=$TARGETARCH go install -trimpath -ldflags="-s -w \
       -X tailscale.com/version.shortStamp=$VERSION_SHORT \
       -X tailscale.com/version.gitCommitStamp=$VERSION_GIT_HASH" \
       -v ./cmd/tailscale ./cmd/tailscaled ./cmd/containerboot
+RUN mkdir /tailscale && ln -s /usr/local/bin/containerboot /tailscale/run.sh
 
 FROM scratch
 
 COPY --from=builder /go/bin/* /usr/local/bin/
+COPY --from=builder /tailscale /tailscale
 COPY --from=builder /etc/ssl /etc/ssl
-# For compat with the previous run.sh, although ideally you should be
-# using build_docker.sh which sets an entrypoint for the image.
-RUN mkdir /tailscale && ln -s /usr/local/bin/containerboot /tailscale/run.sh
 
 ENTRYPOINT ["/tailscale/run.sh"]
