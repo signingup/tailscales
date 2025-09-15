@@ -1,10 +1,10 @@
-FROM golang:1.25-alpine AS builder
+FROM golang:1.25.1-alpine AS builder
 
 RUN apk update && apk add --no-cache git
 
 #build tailscale
 WORKDIR /tailscale
-RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.86.5
+RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.88.1
 
 RUN go mod download
 
