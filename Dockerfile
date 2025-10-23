@@ -6,6 +6,7 @@ RUN apk update && apk add --no-cache git
 WORKDIR /tailscale
 RUN git clone https://github.com/tailscale/tailscale.git . && git checkout v1.91.0-pre
 
+COPY go.mod go.sum ./
 RUN go mod download
 
 # Pre-build some stuff before the following COPY line invalidates the Docker cache.
